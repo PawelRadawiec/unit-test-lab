@@ -13,4 +13,8 @@ export class UsersService {
   list() {
     return this.http.get<User[]>(`${this.baseUrl}/users`);
   }
+
+  create(user: User) {
+    return this.http.post<User>(`${this.baseUrl}/users`, user);
+  }
 }

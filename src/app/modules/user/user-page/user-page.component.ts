@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { UserFormComponent } from './components/user-form/user-form.component';
 
 @Component({
   selector: 'app-user-page',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private modalService: NzModalService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
+  create() {
+    this.modalService.create({
+      nzTitle: 'Create',
+      nzContent: UserFormComponent,
+      nzFooter: null,
+    });
+  }
 }

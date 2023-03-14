@@ -1,3 +1,5 @@
+import { UsersActions } from 'src/app/state/user/users.actions';
+import { Store } from '@ngxs/store';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -10,19 +12,22 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class UserFormComponent implements OnInit {
   formGroup!: FormGroup;
 
-  constructor(private fb: FormBuilder, private modalService: NzModalService) {}
+  constructor(
+    private fb: FormBuilder,
+    private modalService: NzModalService,
+    private store: Store
+  ) {}
 
   ngOnInit() {
     this.setFromGroup();
   }
 
-  save() {
-    // TODO - dispatch action
+  close() {
     this.modalService.closeAll();
   }
 
-  close() {
-    this.modalService.closeAll();
+  save() {
+    this.store.dispatch(new UsersActions.Create(this.formGroup.getRawValue()));
   }
 
   setFromGroup() {

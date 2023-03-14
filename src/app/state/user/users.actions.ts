@@ -1,7 +1,7 @@
 import { User } from './../../models/user.model';
 export namespace UsersActions {
-  export class Add {
-    static readonly type = '[Users] Add';
+  export class Create {
+    static readonly type = '[Users] Create';
     constructor(public user: User) {}
   }
 

@@ -1,5 +1,9 @@
-
 <section class="user-page">
-    <app-user-search-form></app-user-search-form>
-    <app-user-list></app-user-list>
+  <app-user-search-form></app-user-search-form>
+
+  <div class="user-page__buttons">
+    <button nz-button nzType="primary" (click)="create()">Create</button>
+  </div>
+
+  <app-user-list></app-user-list>
 </section>
