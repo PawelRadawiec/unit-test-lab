@@ -1,6 +1,11 @@
+import { User } from './../../../../../models/user.model';
+import { UsersState } from './../../../../../state/user/users.state';
 import { UserFormComponent } from './../user-form/user-form.component';
 import { Component, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { Select, Store } from '@ngxs/store';
+import { UsersActions } from 'src/app/state/user/users.actions';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-list',
@@ -8,75 +13,13 @@ import { NzModalService } from 'ng-zorro-antd/modal';
   styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent implements OnInit {
-  users = [
-    {
-      id: 1,
-      name: 'John',
-      email: 'email@gmail.com',
-      age: 22,
-      surname: 'Surname',
-    },
-    {
-      id: 2,
-      name: 'John',
-      email: 'email@gmail.com',
-      age: 43,
-      surname: 'Surname',
-    },
-    {
-      id: 3,
-      name: 'John',
-      email: 'email@gmail.com',
-      age: 25,
-      surname: 'Surname',
-    },
-    {
-      id: 4,
-      name: 'John',
-      email: 'email@gmail.com',
-      age: 12,
-      surname: 'Surname',
-    },
-    {
-      id: 5,
-      name: 'John',
-      email: 'email@gmail.com',
-      age: 64,
-      surname: 'Surname',
-    },
-    {
-      id: 5,
-      name: 'John',
-      email: 'email@gmail.com',
-      age: 64,
-      surname: 'Surname',
-    },
-    {
-      id: 5,
-      name: 'John',
-      email: 'email@gmail.com',
-      age: 64,
-      surname: 'Surname',
-    },
-    {
-      id: 5,
-      name: 'John',
-      email: 'email@gmail.com',
-      age: 64,
-      surname: 'Surname',
-    },
-    {
-      id: 5,
-      name: 'John',
-      email: 'email@gmail.com',
-      age: 64,
-      surname: 'Surname',
-    },
-  ];
+  @Select(UsersState.users) users$!: Observable<any>;
 
-  constructor(private modalService: NzModalService) {}
+  constructor(private modalService: NzModalService, private store: Store) {}
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    this.store.dispatch(new UsersActions.List());
+  }
 
   edit() {
     this.modalService.create({

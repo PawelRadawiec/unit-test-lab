@@ -1,12 +1,15 @@
+import { UsersService } from './../../services/users.service';
 import { User } from './../../models/user.model';
-import { Selector, State } from '@ngxs/store';
+import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
+import { UsersActions } from './users.actions';
+import { tap } from 'rxjs';
 
-export interface UsersState {
+export interface UsersStateModel {
   users: User[];
 }
 
-@State<UsersState>({
+@State<UsersStateModel>({
   name: 'users',
   defaults: {
     users: [],
@@ -14,10 +17,21 @@ export interface UsersState {
 })
 @Injectable()
 export class UsersState {
-    
+  constructor(private usersService: UsersService) {}
+
   @Selector()
-  static users(state: UsersState) {
+  static users(state: UsersStateModel) {
     return state.users;
   }
-  
+
+  @Action(UsersActions.List)
+  list(ctx: StateContext<UsersStateModel>) {
+    return this.usersService.list().pipe(
+      tap((users) => {
+        ctx.patchState({
+          users,
+        });
+      })
+    );
+  }
 }

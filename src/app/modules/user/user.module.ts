@@ -10,20 +10,19 @@ import { DrawerUserComponent } from './user-page/components/drawer-user/drawer-u
 import { UserSearchFormComponent } from './user-page/components/user-search-form/user-search-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 @NgModule({
   declarations: [
     UserPageComponent,
     UserFormComponent,
     UserListComponent,
     DrawerUserComponent,
-    UserSearchFormComponent
+    UserSearchFormComponent,
   ],
   imports: [
     CommonModule,
     UserRoutingModule,
     SharedModule,
     ReactiveFormsModule
-  ]
+  ],
 })
-export class UserModule { }
+export class UserModule {}

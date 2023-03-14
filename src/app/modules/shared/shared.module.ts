@@ -9,6 +9,10 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { InputTextComponent } from './components/input-text/input-text.component';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxsSelectSnapshotModule } from '@ngxs-labs/select-snapshot';
+import { NgxsModule } from '@ngxs/store';
+import { UsersState } from 'src/app/state/user/users.state';
+import { environment } from 'src/environments/environment';
 
 const ngZorroModules = [
   NzIconModule,
@@ -28,7 +32,12 @@ const ngZorroModules = [
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    ...ngZorroModules
+    ...ngZorroModules,
+
+    NgxsSelectSnapshotModule,
+    NgxsModule.forRoot([UsersState], {
+      developmentMode: !environment.production
+    })
   ],
   exports: [...ngZorroModules, InputTextComponent]
 })

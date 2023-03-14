@@ -1,3 +1,4 @@
+import { NgxsModule } from '@ngxs/store';
 import { UsersState } from './state/user/users.state';
 import { CoreModule } from './modules/core/core.module';
 import { NgModule } from '@angular/core';
@@ -12,8 +13,7 @@ import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxsModule } from '@ngxs/store';
-import { environment } from 'src/environments/environment';
+import { NgxsSelectSnapshotModule } from '@ngxs-labs/select-snapshot';
 
 registerLocaleData(en);
 
@@ -21,16 +21,16 @@ registerLocaleData(en);
   declarations: [
     AppComponent
   ],
-  imports: [
+  imports: [ 
     BrowserModule,
     AppRoutingModule,
     CoreModule,
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NgxsModule.forRoot([UsersState], {
-      developmentMode: !environment.production
-    })
+  
+    NgxsSelectSnapshotModule.forRoot(),
+    NgxsModule.forRoot([UsersState]),
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US }
