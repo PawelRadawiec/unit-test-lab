@@ -15,9 +15,9 @@
       <td>{{ data.email }}</td>
       <td>{{ data.age }}</td>
       <td>
-        <a>Edit</a>
+        <a (click)="edit()">Edit</a>
         <nz-divider nzType="vertical"></nz-divider>
-        <a>Delete</a>
+        <a (click)="delete()">Delete</a>
       </td>
     </tr>
   </tbody>

@@ -1,4 +1,6 @@
+import { UserFormComponent } from './../user-form/user-form.component';
 import { Component, OnInit } from '@angular/core';
+import {  NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-user-list',
@@ -72,11 +74,21 @@ export class UserListComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(private modalService: NzModalService) {}
 
   ngOnInit(): void {}
 
-  edit() {}
+  edit() {
+    this.modalService.create({
+      nzTitle: 'Edit',
+      nzContent: UserFormComponent
+    });
+  }
 
-  delete() {}
+  delete() {
+    this.modalService.create({
+      nzTitle: 'Delete',
+      nzContent: 'Delete user'
+    });
+  }
 }

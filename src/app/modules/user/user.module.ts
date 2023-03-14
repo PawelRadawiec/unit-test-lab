@@ -8,6 +8,7 @@ import { UserFormComponent } from './user-page/components/user-form/user-form.co
 import { UserListComponent } from './user-page/components/user-list/user-list.component';
 import { DrawerUserComponent } from './user-page/components/drawer-user/drawer-user.component';
 import { UserSearchFormComponent } from './user-page/components/user-search-form/user-search-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { UserSearchFormComponent } from './user-page/components/user-search-form
   imports: [
     CommonModule,
     UserRoutingModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class UserModule { }

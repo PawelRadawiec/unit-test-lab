@@ -1,1 +1,14 @@
-<p>user-form works!</p>
+<form class="user-form" [formGroup]="formGroup">
+  <app-input-text formControlName="name" placeholder="Name"></app-input-text>
+
+  <app-input-text
+    formControlName="surname"
+    placeholder="Surname"
+  ></app-input-text>
+
+  <app-input-text formControlName="email" placeholder="Email"></app-input-text>
+
+  <app-input-text formControlName="age" placeholder="Age"></app-input-text>
+
+  <app-input-text formControlName="city" placeholder="City"></app-input-text>
+</form>
