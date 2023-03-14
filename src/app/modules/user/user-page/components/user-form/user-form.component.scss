@@ -2,4 +2,13 @@
     padding: 8px 16px;
     display: flex;
     flex-direction: column;
+
+    &__buttons {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    &__buttons button:last-child {
+        margin-left: 10px;
+    }
 }

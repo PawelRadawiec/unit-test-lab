@@ -1,3 +1,4 @@
+import { UsersState } from './state/user/users.state';
 import { CoreModule } from './modules/core/core.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,6 +12,8 @@ import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxsModule } from '@ngxs/store';
+import { environment } from 'src/environments/environment';
 
 registerLocaleData(en);
 
@@ -24,7 +27,10 @@ registerLocaleData(en);
     CoreModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxsModule.forRoot([UsersState], {
+      developmentMode: !environment.production
+    })
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US }
