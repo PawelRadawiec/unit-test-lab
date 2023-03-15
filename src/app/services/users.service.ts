@@ -6,15 +6,19 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class UsersService {
-  readonly baseUrl = 'http://localhost:3000';
+  readonly baseUrl = 'http://localhost:3000/users';
 
   constructor(private http: HttpClient) {}
 
-  list() {
-    return this.http.get<User[]>(`${this.baseUrl}/users`);
+  create(user: User) {
+    return this.http.post<User>(`${this.baseUrl}`, user);
   }
 
-  create(user: User) {
-    return this.http.post<User>(`${this.baseUrl}/users`, user);
+  delete(id: number) {
+    return this.http.delete(`${this.baseUrl}/${id}`);
+  }
+
+  list() {
+    return this.http.get<User[]>(`${this.baseUrl}`);
   }
 }

@@ -29,13 +29,27 @@ export class UsersState {
   }
 
   @Action(UsersActions.Create)
-  Create(ctx: StateContext<UsersStateModel>, { user }: UsersActions.Create) {
+  create(ctx: StateContext<UsersStateModel>, { user }: UsersActions.Create) {
     return this.usersService.create(user).pipe(
       tap((user) => {
         this.modalSerice.closeAll();
         ctx.patchState({
-          users: [...ctx.getState().users, user]
-        })
+          users: [...ctx.getState().users, user],
+        });
+      })
+    );
+  }
+
+  @Action(UsersActions.Delete)
+  delete(ctx: StateContext<UsersStateModel>, { id }: UsersActions.Delete) {
+    return this.usersService.delete(id).pipe(
+      tap(() => {
+        const users = [...ctx.getState().users].filter(
+          (user) => user.id !== id
+        );
+        ctx.patchState({
+          users,
+        });
       })
     );
   }

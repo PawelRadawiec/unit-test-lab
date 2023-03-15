@@ -9,15 +9,15 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of usersTable.data">
-      <td>{{ data?.name }}</td>
-      <td>{{ data?.surname }}</td>
-      <td>{{ data?.email }}</td>
-      <td>{{ data?.age }}</td>
+    <tr *ngFor="let user of usersTable.data">
+      <td>{{user?.name }}</td>
+      <td>{{ user?.surname }}</td>
+      <td>{{ user?.email }}</td>
+      <td>{{ user?.age }}</td>
       <td>
         <a (click)="edit()">Edit</a>
         <nz-divider nzType="vertical"></nz-divider>
-        <a (click)="delete()">Delete</a>
+        <a (click)="delete(user)">Delete</a>
       </td>
     </tr>
   </tbody>

@@ -5,6 +5,12 @@ export namespace UsersActions {
     constructor(public user: User) {}
   }
 
+  export class Delete {
+    static readonly type = '[Users] Remove';
+
+    constructor(public id: number) {}
+  }
+
   export class Edit {
     static readonly type = '[Users] Edit';
 
@@ -14,11 +20,5 @@ export namespace UsersActions {
   export class List {
     static readonly type = '[Users] List';
     constructor() {}
-  }
-
-  export class Remove {
-    static readonly type = '[Users] Remove';
-
-    constructor(public id: number) {}
   }
 }

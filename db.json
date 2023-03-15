@@ -1,13 +1,6 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "John",
-      "email": "email@gmail.com",
-      "age": 22,
-      "surname": "Surname"
-    },
-    {
       "name": "Pawel",
       "surname": "Radawiec",
       "email": "asdasd@asdasd",
@@ -80,14 +73,6 @@
       "id": 10
     },
     {
-      "name": "NOwy",
-      "surname": "asdsad",
-      "email": "adas",
-      "age": "asdasd",
-      "city": "asdsad",
-      "id": 11
-    },
-    {
       "name": "zxczx",
       "surname": "zcxzc",
       "email": "zcx",
@@ -110,6 +95,30 @@
       "age": null,
       "city": null,
       "id": 14
+    },
+    {
+      "name": null,
+      "surname": null,
+      "email": null,
+      "age": null,
+      "city": null,
+      "id": 15
+    },
+    {
+      "name": null,
+      "surname": null,
+      "email": null,
+      "age": null,
+      "city": null,
+      "id": 16
+    },
+    {
+      "name": null,
+      "surname": null,
+      "email": null,
+      "age": null,
+      "city": null,
+      "id": 17
     }
   ]
 }

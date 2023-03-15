@@ -29,10 +29,13 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  delete() {
+  delete({ id, name, surname }: User) {
     this.modalService.create({
       nzTitle: 'Delete',
-      nzContent: 'Delete user',
+      nzContent: `Delete ${name} ${surname}`,
+      nzOnOk: () => {
+        this.store.dispatch(new UsersActions.Delete(id));
+      },
     });
   }
 }
