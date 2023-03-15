@@ -18,6 +18,10 @@ export class UsersService {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
 
+  edit(user: User) {
+    return this.http.put(`${this.baseUrl}/${user?.id}`, user);
+  }
+
   list() {
     return this.http.get<User[]>(`${this.baseUrl}`);
   }

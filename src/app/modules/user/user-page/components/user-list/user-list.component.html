@@ -10,14 +10,26 @@
   </thead>
   <tbody>
     <tr *ngFor="let user of usersTable.data">
-      <td>{{user?.name }}</td>
+      <td>{{ user?.name }}</td>
       <td>{{ user?.surname }}</td>
       <td>{{ user?.email }}</td>
       <td>{{ user?.age }}</td>
       <td>
-        <a (click)="edit()">Edit</a>
+        <span
+          class="icon"
+          nz-icon
+          nzType="edit"
+          nzTheme="outline"
+          (click)="edit(user)"
+        ></span>
         <nz-divider nzType="vertical"></nz-divider>
-        <a (click)="delete(user)">Delete</a>
+        <span
+          class="icon icon--danger"
+          nz-icon
+          nzType="delete"
+          nzTheme="outline"
+          (click)="delete(user)"
+        ></span>
       </td>
     </tr>
   </tbody>

@@ -21,10 +21,11 @@ export class UserListComponent implements OnInit {
     this.store.dispatch(new UsersActions.List());
   }
 
-  edit() {
+  edit(user: User) {
     this.modalService.create({
       nzTitle: 'Edit',
       nzContent: UserFormComponent,
+      nzComponentParams: {user},
       nzFooter: null,
     });
   }

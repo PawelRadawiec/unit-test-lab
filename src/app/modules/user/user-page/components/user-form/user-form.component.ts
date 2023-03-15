@@ -1,7 +1,8 @@
+import { User } from './../../../../../models/user.model';
 import { UsersActions } from 'src/app/state/user/users.actions';
 import { Store } from '@ngxs/store';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -10,6 +11,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./user-form.component.scss'],
 })
 export class UserFormComponent implements OnInit {
+  @Input() user!: User;
   formGroup!: FormGroup;
 
   constructor(
@@ -27,16 +29,21 @@ export class UserFormComponent implements OnInit {
   }
 
   save() {
-    this.store.dispatch(new UsersActions.Create(this.formGroup.getRawValue()));
+    const { id } = this.user ?? {};
+    const request = { ...this.user, ...this.formGroup.getRawValue() };
+    const action = id
+      ? new UsersActions.Edit(request)
+      : new UsersActions.Create(request);
+    this.store.dispatch(action);
   }
 
   setFromGroup() {
     this.formGroup = this.fb.group({
-      name: [],
-      surname: [],
-      email: [],
-      age: [],
-      city: [],
+      name: [this.user?.name],
+      surname: [this.user?.surname],
+      email: [this.user?.email],
+      age: [this.user?.age],
+      city: [this.user?.city],
     });
   }
 }

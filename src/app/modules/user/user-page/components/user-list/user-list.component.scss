@@ -1,3 +1,21 @@
 th {
   width: 200px;
 }
+
+.icon {
+  font-size: 18px;
+  color: #1098ad;
+  transition: all 0.3s;
+
+  &--danger {
+    color: #fa5252;
+  }
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  &:active {
+    transform: scale(1);
+  }
+}

@@ -14,7 +14,7 @@ export namespace UsersActions {
   export class Edit {
     static readonly type = '[Users] Edit';
 
-    constructor(public id: number, user: User) {}
+    constructor(public user: User) {}
   }
 
   export class List {

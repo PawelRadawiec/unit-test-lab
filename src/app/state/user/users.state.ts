@@ -54,6 +54,20 @@ export class UsersState {
     );
   }
 
+  @Action(UsersActions.Edit)
+  edit(ctx: StateContext<UsersStateModel>, { user }: UsersActions.Edit) {
+    return this.usersService.edit(user).pipe(
+      tap(() => {
+        this.modalSerice.closeAll();
+        const users = [...ctx.getState().users];
+        users[users.findIndex((item) => item.id === user.id)] = user;
+        ctx.patchState({
+          users,
+        });
+      })
+    );
+  }
+
   @Action(UsersActions.List)
   list(ctx: StateContext<UsersStateModel>) {
     return this.usersService.list().pipe(
