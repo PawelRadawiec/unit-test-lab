@@ -3,7 +3,7 @@ import { UsersActions } from 'src/app/state/user/users.actions';
 import { Store } from '@ngxs/store';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-form',
@@ -39,7 +39,7 @@ export class UserFormComponent implements OnInit {
 
   setFromGroup() {
     this.formGroup = this.fb.group({
-      name: [this.user?.name],
+      name: [this.user?.name, Validators.required],
       surname: [this.user?.surname],
       email: [this.user?.email],
       age: [this.user?.age],

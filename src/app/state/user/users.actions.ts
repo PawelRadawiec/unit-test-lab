@@ -11,6 +11,10 @@ export namespace UsersActions {
     constructor(public id: number) {}
   }
 
+  export class DeleteAll {
+    static readonly type = '[Users] DeleteAll'
+  }
+
   export class Edit {
     static readonly type = '[Users] Edit';
 

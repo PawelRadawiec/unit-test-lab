@@ -3,7 +3,7 @@ import { User } from './../../models/user.model';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { UsersActions } from './users.actions';
-import { tap } from 'rxjs';
+import { forkJoin, tap } from 'rxjs';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 export interface UsersStateModel {
@@ -52,6 +52,12 @@ export class UsersState {
         });
       })
     );
+  }
+
+  @Action(UsersActions.DeleteAll)
+  deleteAll(ctx: StateContext<UsersStateModel>) {
+    const userIds = ctx.getState().users?.map((user) => user?.id);
+    userIds?.forEach((id) => ctx.dispatch(new UsersActions.Delete(id)));
   }
 
   @Action(UsersActions.Edit)
