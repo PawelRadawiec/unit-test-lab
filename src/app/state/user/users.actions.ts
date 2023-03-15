@@ -1,3 +1,4 @@
+import { UserSearchTerms } from './../../models/user-search.model';
 import { User } from './../../models/user.model';
 export namespace UsersActions {
   export class Create {
@@ -12,7 +13,7 @@ export namespace UsersActions {
   }
 
   export class DeleteAll {
-    static readonly type = '[Users] DeleteAll'
+    static readonly type = '[Users] DeleteAll';
   }
 
   export class Edit {
@@ -24,5 +25,11 @@ export namespace UsersActions {
   export class List {
     static readonly type = '[Users] List';
     constructor() {}
+  }
+
+  export class Search {
+    static readonly type = '[Users] Search';
+
+    constructor(public terms: UserSearchTerms) {}
   }
 }

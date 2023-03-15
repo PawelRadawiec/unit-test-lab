@@ -84,4 +84,13 @@ export class UsersState {
       })
     );
   }
+
+  @Action(UsersActions.Search)
+  search(ctx: StateContext<UsersStateModel>, { terms }: UsersActions.Search) {
+    return this.usersService.search(terms).pipe(
+      tap((users) => {
+        ctx.patchState({ users });
+      })
+    );
+  }
 }

@@ -1,5 +1,6 @@
+import { UserSearchTerms } from './../models/user-search.model';
 import { User } from './../models/user.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -24,5 +25,15 @@ export class UsersService {
 
   list() {
     return this.http.get<User[]>(`${this.baseUrl}`);
+  }
+
+  search(term: UserSearchTerms) {
+    Object.keys(term).forEach((key) => {
+      const termKey = key as keyof UserSearchTerms;
+      if (!term[termKey]) {
+        delete term[termKey];
+      }
+    });
+    return this.http.get<User[]>(`${this.baseUrl}`, { params: term as any });
   }
 }

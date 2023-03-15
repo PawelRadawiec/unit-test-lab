@@ -7,6 +7,14 @@
       "age": "12",
       "city": "city",
       "id": 1
+    },
+    {
+      "name": "Rafal",
+      "surname": "Radafl",
+      "email": "asdasd@asdas.com",
+      "age": "23",
+      "city": "City",
+      "id": 2
     }
   ]
 }

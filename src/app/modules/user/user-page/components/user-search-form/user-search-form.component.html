@@ -1,1 +1,13 @@
-<p>user-search-form works!</p>
+<form class="search-form" [formGroup]="searchForm">
+  <app-input-text
+    class="search-form__control"
+    [placeholder]="'Name'"
+    formControlName="name"
+  ></app-input-text>
+
+  <app-input-text
+    class="search-form__control"
+    [placeholder]="'Surname'"
+    formControlName="surname"
+  ></app-input-text>
+</form>
