@@ -29,9 +29,6 @@ export class UserFormComponent implements OnInit {
   }
 
   save() {
-    if (!this.formGroup.valid) {
-      return;
-    }
     const { id } = this.user ?? {};
     const request = { ...this.user, ...this.formGroup.getRawValue() };
     const action = id
