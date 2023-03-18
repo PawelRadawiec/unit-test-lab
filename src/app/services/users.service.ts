@@ -23,6 +23,10 @@ export class UsersService {
     return this.http.put(`${this.baseUrl}/${user?.id}`, user);
   }
 
+  getById(id: number) {
+    return this.http.get<User>(`${this.baseUrl}/${id}`);
+  }
+
   list() {
     return this.http.get<User[]>(`${this.baseUrl}`);
   }
