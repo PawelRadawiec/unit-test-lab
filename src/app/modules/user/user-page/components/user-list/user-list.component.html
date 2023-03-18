@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let user of usersTable.data">
+    <tr *ngFor="let user of usersTable?.data">
       <td>{{ user?.name }}</td>
       <td>{{ user?.surname }}</td>
       <td>{{ user?.email }}</td>
