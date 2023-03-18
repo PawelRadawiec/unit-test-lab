@@ -13,6 +13,7 @@ import { NgxsSelectSnapshotModule } from '@ngxs-labs/select-snapshot';
 import { NgxsModule } from '@ngxs/store';
 import { UsersState } from 'src/app/state/user/users.state';
 import { environment } from 'src/environments/environment';
+import { NzFormModule } from 'ng-zorro-antd/form';
 
 const ngZorroModules = [
   NzIconModule,
@@ -21,7 +22,8 @@ const ngZorroModules = [
   NzTableModule,
   NzDividerModule,
   NzModalModule,
-  NzInputModule
+  NzInputModule,
+  NzFormModule
 ]
 
 

@@ -29,6 +29,9 @@ export class UserFormComponent implements OnInit {
   }
 
   save() {
+    if (!this.formGroup.valid) {
+      return;
+    }
     const { id } = this.user ?? {};
     const request = { ...this.user, ...this.formGroup.getRawValue() };
     const action = id
@@ -40,10 +43,10 @@ export class UserFormComponent implements OnInit {
   setFromGroup() {
     this.formGroup = this.fb.group({
       name: [this.user?.name, Validators.required],
-      surname: [this.user?.surname],
-      email: [this.user?.email],
-      age: [this.user?.age],
-      city: [this.user?.city],
+      surname: [this.user?.surname, Validators.required],
+      email: [this.user?.email, Validators.required],
+      age: [this.user?.age, Validators.required],
+      city: [this.user?.city, Validators.required],
     });
   }
 }

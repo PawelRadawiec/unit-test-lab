@@ -1,8 +1,8 @@
-import { Component, forwardRef, Input, OnDestroy } from '@angular/core';
+import { Component, forwardRef, Input, OnDestroy, Optional, Self } from '@angular/core';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
-  FormControl,
+  FormControl
 } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 

@@ -22,7 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     UserRoutingModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
 })
 export class UserModule {}
