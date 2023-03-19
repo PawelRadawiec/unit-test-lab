@@ -5,7 +5,6 @@ import {
   Subject,
   takeUntil,
   Observable,
-  EMPTY,
   startWith,
 } from 'rxjs';
 import { Store } from '@ngxs/store';
@@ -48,7 +47,7 @@ export class UserSearchFormComponent implements OnInit {
     return (
       this.searchForm
         ?.get(controlName)
-        ?.valueChanges.pipe(startWith(null), debounceTime(5_00)) ?? EMPTY
+        ?.valueChanges.pipe(startWith(null), debounceTime(5_00))
     );
   }
 }

@@ -10,6 +10,10 @@ import { UserStateMock } from 'src/app/mocks/state/users-state-mock';
 import { MockComponents } from 'ng-mocks';
 import { By } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
+import {
+  checkTextInputControl,
+  ControlType,
+} from 'src/app/helpers/unit-control.helper';
 
 const USER_MOCK = {
   name: 'Name',
@@ -52,7 +56,7 @@ describe('UserFormComponent', () => {
       age: new FormControl(),
       city: new FormControl(),
     });
-    component.user = {...USER_MOCK};
+    component.user = { ...USER_MOCK };
     fixture.detectChanges();
   });
 
@@ -61,13 +65,15 @@ describe('UserFormComponent', () => {
   });
 
   it('should render five controls', () => {
-    checkControl('name', 'app-input-text', fixture);
-    checkControl('surname', 'app-input-text', fixture);
-    checkControl('email', 'app-input-text', fixture);
-    checkControl('age', 'app-input-text', fixture);
-    checkControl('city', 'app-input-text', fixture);
+    checkTextInputControl('name', fixture);
+    checkTextInputControl('surname', fixture);
+    checkTextInputControl('email', fixture);
+    checkTextInputControl('age', fixture);
+    checkTextInputControl('city', fixture);
 
-    const controls = fixture.debugElement.queryAll(By.css('app-input-text'));
+    const controls = fixture.debugElement.queryAll(
+      By.css(ControlType.TEXT_INPUT)
+    );
     expect(controls.length).toEqual(5);
   });
 
@@ -98,31 +104,19 @@ describe('UserFormComponent', () => {
   });
 
   it('should click save and dispatch UsersActions.Create', (done) => {
-    const newUser = {...USER_MOCK, id: null};
+    const newUser = { ...USER_MOCK, id: null };
     component.user = newUser;
     spyOn(component, 'save').and.callThrough();
-    actions$.pipe(ofActionDispatched(UsersActions.Create)).subscribe((action) => {
-      expect(action?.user).toEqual(newUser);
-      done();
-    });
+    actions$
+      .pipe(ofActionDispatched(UsersActions.Create))
+      .subscribe((action) => {
+        expect(action?.user).toEqual(newUser);
+        done();
+      });
 
     const saveBtn = fixture.debugElement.queryAll(By.css('button'))[1];
     saveBtn.triggerEventHandler('click');
 
     expect(component.save).toHaveBeenCalled();
   });
-
 });
-
-function checkControl(
-  controlName: string,
-  type: string,
-  fixture: ComponentFixture<any>
-) {
-  const control = fixture.debugElement.query(
-    By.css(`${type}[formControlName=${controlName}]`)
-  );
-  expect(control)
-    .withContext(`should render ${type} with formControlName=${controlName}`)
-    .toBeTruthy();
-}
