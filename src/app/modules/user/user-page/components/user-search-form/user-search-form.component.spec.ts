@@ -1,13 +1,10 @@
+import { UsersActions } from 'src/app/state/user/users.actions';
 import { By } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserStateMock } from 'src/app/mocks/state/users-state-mock';
-import { NgxsModule, Actions } from '@ngxs/store';
+import { NgxsModule, Actions, ofActionDispatched } from '@ngxs/store';
 import { InputTextComponent } from './../../../../shared/components/input-text/input-text.component';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { checkTextInputControl } from 'src/app/helpers/unit-control.helper';
 
 import { UserSearchFormComponent } from './user-search-form.component';
@@ -43,6 +40,12 @@ describe('UserSearchFormComponent', () => {
   it('should set name and dispatch UsersActions.Search', waitForAsync(() => {
     spyOn(component, 'handleFormChanges').and.callThrough();
 
+    actions$
+      .pipe(ofActionDispatched(UsersActions.Search))
+      .subscribe((action) => {
+        expect(action.terms).toEqual({ name: 'John', surname: null });
+      });
+
     const nameInput = fixture.debugElement.queryAll(By.css('input'))[0];
     nameInput.nativeElement.value = 'John';
     nameInput.nativeElement.dispatchEvent(new Event('input'));
@@ -54,6 +57,12 @@ describe('UserSearchFormComponent', () => {
 
   it('should set surname and dispatch UsersActions.Search', waitForAsync(() => {
     spyOn(component, 'handleFormChanges').and.callThrough();
+
+    actions$
+      .pipe(ofActionDispatched(UsersActions.Search))
+      .subscribe((action) => {
+        expect(action.terms).toEqual({ name: null, surname: 'Surname' });
+      });
 
     const nameInput = fixture.debugElement.queryAll(By.css('input'))[1];
     nameInput.nativeElement.value = 'Surname';
