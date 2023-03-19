@@ -29,10 +29,10 @@ export class UserSearchFormComponent implements OnInit {
       this.getValueChanges('surname'),
     ])
       .pipe(takeUntil(this.destroy$))
-      .subscribe((data) => this.handleSearchTerms(...data));
+      .subscribe((data) => this.handleFormChanges(...data));
   }
 
-  handleSearchTerms(name: string, surname: string) {
+  handleFormChanges(name: string, surname: string) {
     this.store.dispatch(new UsersActions.Search({ name, surname }));
   }
 
