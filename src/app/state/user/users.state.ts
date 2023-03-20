@@ -3,7 +3,7 @@ import { User } from './../../models/user.model';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { UsersActions } from './users.actions';
-import { forkJoin, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 export interface UsersStateModel {

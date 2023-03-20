@@ -23,14 +23,11 @@ const ngZorroModules = [
   NzDividerModule,
   NzModalModule,
   NzInputModule,
-  NzFormModule
-]
-
+  NzFormModule,
+];
 
 @NgModule({
-  declarations: [
-    InputTextComponent
-  ],
+  declarations: [InputTextComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -38,9 +35,9 @@ const ngZorroModules = [
 
     NgxsSelectSnapshotModule,
     NgxsModule.forRoot([UsersState], {
-      developmentMode: !environment.production
-    })
+      developmentMode: !environment.production,
+    }),
   ],
-  exports: [...ngZorroModules, InputTextComponent]
+  exports: [...ngZorroModules, InputTextComponent],
 })
-export class SharedModule { }
+export class SharedModule {}
