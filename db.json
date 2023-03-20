@@ -7,6 +7,14 @@
       "age": "12",
       "city": "City",
       "id": 1
+    },
+    {
+      "name": "Pawel",
+      "surname": "Radawiec",
+      "email": "email@email.com",
+      "age": "12",
+      "city": "City",
+      "id": 2
     }
   ]
 }
