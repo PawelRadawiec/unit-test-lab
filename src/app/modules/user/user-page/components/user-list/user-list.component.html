@@ -1,6 +1,6 @@
-<nz-table #usersTable [nzData]="users$ | async">
+<table class="table">
   <thead>
-    <tr>
+    <tr class="table__header">
       <th>Name</th>
       <th>Surname</th>
       <th>Email</th>
@@ -9,22 +9,21 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let user of usersTable?.data">
+    <tr class="table__row" *ngFor="let user of users$ | async">
       <td>{{ user?.name }}</td>
       <td>{{ user?.surname }}</td>
       <td>{{ user?.email }}</td>
       <td>{{ user?.age }}</td>
       <td>
         <span
-          class="icon"
+          class="table__icon"
           nz-icon
           nzType="edit"
           nzTheme="outline"
           (click)="edit(user)"
         ></span>
-        <nz-divider nzType="vertical"></nz-divider>
         <span
-          class="icon icon--danger"
+          class="table__icon table__icon--danger"
           nz-icon
           nzType="delete"
           nzTheme="outline"
@@ -33,4 +32,4 @@
       </td>
     </tr>
   </tbody>
-</nz-table>
+</table>

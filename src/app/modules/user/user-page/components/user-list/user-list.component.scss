@@ -1,21 +1,65 @@
 th {
   width: 200px;
+  text-align: start;
 }
 
-.icon {
-  font-size: 18px;
-  color: #1098ad;
-  transition: all 0.3s;
+.table {
+  margin-top: 16px;
+  &__header {
+    border-bottom: 1px solid #ced4da;
+    color: #fff;
+    background: #9775fa;
 
-  &--danger {
-    color: #fa5252;
+    th {
+      padding: 16px;
+
+      &:last-child {
+        border-start-end-radius: 10px;
+      }
+
+      &:first-child {
+        border-start-start-radius: 10px;
+      }
+    }
   }
 
-  &:hover {
-    transform: scale(1.2);
+  &__row {
+    transition: all 0.2s;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #ced4da;
+    }
+
+    &:last-child {
+      border-bottom: 3px solid #9775fa;
+    }
+
+    &:hover {
+      background: #e9ecef;
+      color: #9775fa;
+    }
+
+    td {
+      padding: 16px;
+    }
   }
 
-  &:active {
-    transform: scale(1);
+  &__icon {
+    font-size: 24px;
+    color: #9775fa;
+    transition: all 0.2s;
+    margin-right: 8px;
+  
+    &--danger {
+      color: #fa5252;
+    }
+  
+    &:hover {
+      transform: scale(1.05);
+    }
+  
+    &:active {
+      transform: scale(1);
+    }
   }
 }
