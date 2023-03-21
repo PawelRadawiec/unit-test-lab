@@ -15,6 +15,10 @@
     color: $gray-1;
   }
 
+  &-header, &-body, &-footer {
+    background: $gray-7;
+  }
+
   &-header {
     border-bottom: 2px solid $gray-6;
     background: $gray-7;
@@ -23,4 +27,6 @@
   &-body {
     background: $gray-7;
   }
+
+
 }
