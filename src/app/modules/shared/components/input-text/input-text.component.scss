@@ -1,12 +1,14 @@
+@import "../../../../../styles/theme.scss";
+
 .text-input {
   margin-bottom: 16px;
   padding: 6px 14px;
   border-radius: 12px;
-  border: 3px solid #9775fa;
+  border: 3px solid $main-color;
   outline: none;
   transition: all 0.3s ease;
 
   &:focus-visible {
-     box-shadow: 0px 0px 8px 0px #9775fa;
+     box-shadow: 0px 0px 8px 0px $main-color;
   }
 }

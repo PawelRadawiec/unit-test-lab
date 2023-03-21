@@ -1,7 +1,9 @@
+@import "../../../../../styles/theme.scss";
+
 .header {
   display: flex;
   align-items: center;
-  background-color: #9775fa;
+  background-color: $main-color;
   padding: 20px;
 
   &__title {

@@ -1,3 +1,5 @@
+@import '../../../../../../styles/theme.scss';
+
 th {
   width: 200px;
   text-align: start;
@@ -8,7 +10,7 @@ th {
   &__header {
     border-bottom: 1px solid #ced4da;
     color: #fff;
-    background: #9775fa;
+    background: $main-color;
 
     th {
       padding: 16px;
@@ -31,12 +33,12 @@ th {
     }
 
     &:last-child {
-      border-bottom: 3px solid #9775fa;
+      border-bottom: 3px solid $main-color;
     }
 
     &:hover {
       background: #e9ecef;
-      color: #9775fa;
+      color: $main-color;
     }
 
     td {
@@ -46,12 +48,12 @@ th {
 
   &__icon {
     font-size: 24px;
-    color: #9775fa;
+    color: $main-color;
     transition: all 0.2s;
     margin-right: 8px;
   
     &--danger {
-      color: #fa5252;
+      color: $main-danger;
     }
   
     &:hover {
