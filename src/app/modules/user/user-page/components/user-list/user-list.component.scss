@@ -1,4 +1,4 @@
-@import '../../../../../../styles/theme.scss';
+@import "../../../../../../styles/theme.scss";
 
 th {
   width: 200px;
@@ -7,9 +7,9 @@ th {
 
 .table {
   margin-top: 16px;
+  color: $gray-1;
   &__header {
-    border-bottom: 1px solid #ced4da;
-    color: #fff;
+    color: $gray-1;
     background: $main-color;
 
     th {
@@ -37,8 +37,9 @@ th {
     }
 
     &:hover {
-      background: #e9ecef;
+      background: $gray-7;
       color: $main-color;
+      font-weight: 600;
     }
 
     td {
@@ -51,15 +52,15 @@ th {
     color: $main-color;
     transition: all 0.2s;
     margin-right: 8px;
-  
+
     &--danger {
       color: $main-danger;
     }
-  
+
     &:hover {
       transform: scale(1.05);
     }
-  
+
     &:active {
       transform: scale(1);
     }
