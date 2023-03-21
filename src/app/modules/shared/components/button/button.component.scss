@@ -17,13 +17,12 @@
   }
 
   &--outline {
-    background: #fff;
+    background: $gray-7;
     border: 3px solid$indigo-3;
     padding: 3px 12px;
-    color: #000;
 
     &:hover {
-      background: $indigo-0;
+      background: $gray-6;
     }
   }
 

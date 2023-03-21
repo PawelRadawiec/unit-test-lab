@@ -1,8 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap");
+@import "./styles/theme.scss";
 
 * {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+.ant-modal {
+  color: $gray-1;
+
+  &-title {
+    color: $gray-1;
+  }
+
+  &-header {
+    border-bottom: 2px solid $gray-6;
+    background: $gray-7;
+  }
+
+  &-body {
+    background: $gray-7;
+  }
 }
