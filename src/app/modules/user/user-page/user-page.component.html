@@ -4,10 +4,12 @@
       <app-user-search-form></app-user-search-form>
 
       <div class="user-page__buttons">
-        <button nz-button nzType="primary" (click)="create()">Create</button>
-        <button nz-button nzType="primary" nzDanger (click)="deleteAll()">
-          Delete all
-        </button>
+        <app-button (onClick)="create()" text="Create"></app-button>
+        <app-button
+          [type]="buttonTypes.DANGER"
+          (onClick)="deleteAll()"
+          text="Delete all"
+        ></app-button>
       </div>
     </div>
 

@@ -14,6 +14,7 @@ import { NgxsModule } from '@ngxs/store';
 import { UsersState } from 'src/app/state/user/users.state';
 import { environment } from 'src/environments/environment';
 import { NzFormModule } from 'ng-zorro-antd/form';
+import { ButtonComponent } from './components/button/button.component';
 
 const ngZorroModules = [
   NzIconModule,
@@ -27,7 +28,7 @@ const ngZorroModules = [
 ];
 
 @NgModule({
-  declarations: [InputTextComponent],
+  declarations: [InputTextComponent, ButtonComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -38,6 +39,6 @@ const ngZorroModules = [
       developmentMode: !environment.production,
     }),
   ],
-  exports: [...ngZorroModules, InputTextComponent],
+  exports: [...ngZorroModules, InputTextComponent,ButtonComponent],
 })
 export class SharedModule {}

@@ -1,3 +1,4 @@
+import { ButtonType } from './../../shared/components/button/button.component';
 import { UsersActions } from 'src/app/state/user/users.actions';
 import { Store } from '@ngxs/store';
 import { Component, OnInit } from '@angular/core';
@@ -10,6 +11,8 @@ import { UserFormComponent } from './components/user-form/user-form.component';
   styleUrls: ['./user-page.component.scss'],
 })
 export class UserPageComponent implements OnInit {
+  buttonTypes = ButtonType;
+
   constructor(private modalService: NzModalService, private store: Store) {}
 
   ngOnInit() {}

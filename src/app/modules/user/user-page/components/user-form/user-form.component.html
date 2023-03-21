@@ -13,7 +13,7 @@
   <app-input-text formControlName="city" placeholder="City"></app-input-text>
 
   <div class="user-form__buttons">
-    <button nz-button (click)="close()">Close</button>
-    <button nzType="primary" nz-button type="submit" (click)="save()">Save</button>
+    <app-button [outline]="true" (onClick)="close()" text="Close"></app-button>
+    <app-button (onClick)="save()" text="Save"></app-button>
   </div>
 </form>

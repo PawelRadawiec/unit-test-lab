@@ -13,7 +13,7 @@ th {
     background: $main-color;
 
     th {
-      padding: 16px;
+      padding: 12px;
 
       &:last-child {
         border-start-end-radius: 10px;
@@ -47,7 +47,7 @@ th {
   }
 
   &__icon {
-    font-size: 24px;
+    font-size: 18px;
     color: $main-color;
     transition: all 0.2s;
     margin-right: 8px;

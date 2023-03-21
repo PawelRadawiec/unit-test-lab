@@ -1,0 +1,10 @@
+<button
+  [ngClass]="{
+    'button--outline': outline,
+    'button--danger': type === buttonTypes.DANGER
+  }"
+  class="button"
+  (click)="handleClick()"
+>
+  {{ text }}
+</button>
