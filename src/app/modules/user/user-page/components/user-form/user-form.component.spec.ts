@@ -1,3 +1,4 @@
+import { ButtonComponent } from './../../../../shared/components/button/button.component';
 import { UsersActions } from 'src/app/state/user/users.actions';
 import { InputTextComponent } from './../../../../shared/components/input-text/input-text.component';
 import { Actions, NgxsModule, ofActionDispatched } from '@ngxs/store';
@@ -36,7 +37,7 @@ describe('UserFormComponent', () => {
     });
 
     await TestBed.configureTestingModule({
-      declarations: [UserFormComponent, ...MockComponents(InputTextComponent)],
+      declarations: [UserFormComponent, ...MockComponents(InputTextComponent, ButtonComponent)],
       imports: [ReactiveFormsModule, NgxsModule.forRoot([UserStateMock])],
       providers: [
         {
@@ -80,8 +81,8 @@ describe('UserFormComponent', () => {
   it('should click close', () => {
     spyOn(component, 'close').and.callThrough();
 
-    const closeBtn = fixture.debugElement.queryAll(By.css('button'))[0];
-    closeBtn.triggerEventHandler('click');
+    const closeBtn = fixture.debugElement.queryAll(By.css('app-button'))[0];
+    closeBtn.triggerEventHandler('onClick');
     fixture.detectChanges();
 
     expect(component['modalService'].closeAll)
@@ -97,8 +98,8 @@ describe('UserFormComponent', () => {
       done();
     });
 
-    const saveBtn = fixture.debugElement.queryAll(By.css('button'))[1];
-    saveBtn.triggerEventHandler('click');
+    const saveBtn = fixture.debugElement.queryAll(By.css('app-button'))[1];
+    saveBtn.triggerEventHandler('onClick');
 
     expect(component.save).toHaveBeenCalled();
   });
@@ -114,8 +115,8 @@ describe('UserFormComponent', () => {
         done();
       });
 
-    const saveBtn = fixture.debugElement.queryAll(By.css('button'))[1];
-    saveBtn.triggerEventHandler('click');
+    const saveBtn = fixture.debugElement.queryAll(By.css('app-button'))[1];
+    saveBtn.triggerEventHandler('onClick');
 
     expect(component.save).toHaveBeenCalled();
   });

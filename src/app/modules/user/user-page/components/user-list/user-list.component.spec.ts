@@ -68,7 +68,7 @@ describe('UserListComponent', () => {
     };
     spyOn(component, 'edit').and.callThrough();
 
-    const editIcon = getFirstRow().queryAll(By.css('.icon'))[0];
+    const editIcon = getFirstRow().queryAll(By.css('.table__icon'))[0];
     editIcon.triggerEventHandler('click');
 
     expect(component.edit).toHaveBeenCalled();
@@ -83,7 +83,7 @@ describe('UserListComponent', () => {
   it('should click delete', () => {
     spyOn(component, 'delete').and.callThrough();
 
-    const editIcon = getFirstRow().queryAll(By.css('.icon'))[1];
+    const editIcon = getFirstRow().queryAll(By.css('.table__icon'))[1];
     editIcon.triggerEventHandler('click');
 
     expect(component.delete).toHaveBeenCalled();
@@ -95,11 +95,11 @@ describe('UserListComponent', () => {
   });
 
   it('should render table', () => {
-    const nzTable = fixture.debugElement.query(By.css('nz-table'));
+    const table = fixture.debugElement.query(By.css('table'));
     const rows = fixture.debugElement.queryAll(By.css('tbody tr'));
     const rowsData = rows[0].queryAll(By.css('td'));
 
-    expect(nzTable).withContext('nz-table').toBeTruthy();
+    expect(table).withContext('table').toBeTruthy();
     expect(rows.length).withContext('should render body rows tr').toEqual(2);
 
     expect(rowsData?.[0]?.nativeElement?.innerText)
