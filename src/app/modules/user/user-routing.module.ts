@@ -1,16 +1,29 @@
+import { UserInfoComponent } from './user-page/user-info/user-info.component';
+
+
 import { UserPageComponent } from './user-page/user-page.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UserDetailsPageComponent } from './user-details-page/user-details-page.component';
 
-const routes: Routes = [
+export const USER_ROUTES: Routes = [
   {
     path: '',
     component: UserPageComponent
-  }
+  },
+  {
+    path: 'details',
+    component: UserDetailsPageComponent
+  },
+  {
+    path: 'info/:id',
+    component: UserInfoComponent
+  },
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(USER_ROUTES)],
   exports: [RouterModule]
 })
 export class UserRoutingModule { }
