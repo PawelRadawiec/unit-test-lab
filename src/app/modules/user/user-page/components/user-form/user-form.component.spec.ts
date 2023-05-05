@@ -2,7 +2,7 @@ import { ButtonComponent } from './../../../../shared/components/button/button.c
 import { UsersActions } from 'src/app/state/user/users.actions';
 import { InputTextComponent } from './../../../../shared/components/input-text/input-text.component';
 import { Actions, NgxsModule, ofActionDispatched } from '@ngxs/store';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserFormComponent } from './user-form.component';
@@ -14,7 +14,9 @@ import { Observable } from 'rxjs';
 import {
   checkTextInputControl,
   ControlType,
+  setInputFieldValue,
 } from 'src/app/helpers/unit-control.helper';
+import { DebugElement } from '@angular/core';
 
 const USER_MOCK = {
   name: 'Name',
@@ -25,19 +27,60 @@ const USER_MOCK = {
   id: 1,
 };
 
+/*
+  describe - is jasmine function which create suite spec tests for specific component, divide tests into multiple parts
+*/
+
 describe('UserFormComponent', () => {
   let actions$: Observable<any>;
+  /* 
+    Component instance returned by ComponentFixture which is mainly used for:
+      - set inputs
+      - get referance to inner values, methods
+  */
   let component: UserFormComponent;
+  /* 
+   ComponentFixture is a wrapper form component and template. It's provide referance to:
+    - component instance passed into TestBed.createComponent()
+    - debug element by which we have access to the rendered DOM
+  */
   let fixture: ComponentFixture<UserFormComponent>;
+  /*
+    Instance of NzModalService which is injected into UserFormComponent
+  */
   let modalService: NzModalService;
+
+  /*
+    Provide access to elements in the DOM. 
+    - wraps the native DOM element and return components host element <app-...></app-...>
+    - offer properties like: properties, attributes, classes, classes to examine the DOM element
+    - provide nativeElement
+  */
+  let debugElement: DebugElement;
 
   beforeEach(async () => {
     modalService = jasmine.createSpyObj('NzModalService', {
       closeAll: undefined,
     });
 
+    /*
+      TestBed:
+       - creates environment for testing component or service
+       - it's like one module per component
+       - configured like normal angular module with imports, declarations, providers
+
+       TestBed.configureTestingModule({
+            imports: [Modules],
+            declarations: [Components, Directives, Pipes],
+            providers: [Injected dependencies like services], 
+        });
+    */
     await TestBed.configureTestingModule({
-      declarations: [UserFormComponent, ...MockComponents(InputTextComponent, ButtonComponent)],
+      declarations: [
+        UserFormComponent,
+        InputTextComponent,
+        ...MockComponents(ButtonComponent),
+      ],
       imports: [ReactiveFormsModule, NgxsModule.forRoot([UserStateMock])],
       providers: [
         {
@@ -47,17 +90,15 @@ describe('UserFormComponent', () => {
       ],
     }).compileComponents();
 
+    // return fixture wrapper
     fixture = TestBed.createComponent(UserFormComponent);
+
     actions$ = TestBed.inject(Actions);
     component = fixture.componentInstance;
-    component.formGroup = new FormGroup({
-      name: new FormControl(),
-      surname: new FormControl(),
-      email: new FormControl(),
-      age: new FormControl(),
-      city: new FormControl(),
-    });
     component.user = { ...USER_MOCK };
+    debugElement = fixture.debugElement;
+
+    // trigger change detection
     fixture.detectChanges();
   });
 
@@ -72,16 +113,14 @@ describe('UserFormComponent', () => {
     checkTextInputControl('age', fixture);
     checkTextInputControl('city', fixture);
 
-    const controls = fixture.debugElement.queryAll(
-      By.css(ControlType.TEXT_INPUT)
-    );
+    const controls = debugElement.queryAll(By.css(ControlType.TEXT_INPUT));
     expect(controls.length).toEqual(5);
   });
 
   it('should click close', () => {
     spyOn(component, 'close').and.callThrough();
 
-    const closeBtn = fixture.debugElement.queryAll(By.css('app-button'))[0];
+    const closeBtn = debugElement.queryAll(By.css('app-button'))[0];
     closeBtn.triggerEventHandler('onClick');
     fixture.detectChanges();
 
@@ -98,7 +137,7 @@ describe('UserFormComponent', () => {
       done();
     });
 
-    const saveBtn = fixture.debugElement.queryAll(By.css('app-button'))[1];
+    const saveBtn = debugElement.queryAll(By.css('app-button'))[1];
     saveBtn.triggerEventHandler('onClick');
 
     expect(component.save).toHaveBeenCalled();
@@ -115,9 +154,27 @@ describe('UserFormComponent', () => {
         done();
       });
 
-    const saveBtn = fixture.debugElement.queryAll(By.css('app-button'))[1];
+    const saveBtn = debugElement.queryAll(By.css('app-button'))[1];
     saveBtn.triggerEventHandler('onClick');
 
     expect(component.save).toHaveBeenCalled();
+  });
+
+  it('should append form group', () => {
+    setInputFieldValue('Name', 'name', fixture);
+    setInputFieldValue('Surname', 'surname', fixture);
+    setInputFieldValue('Email', 'email', fixture);
+    setInputFieldValue('Age', 'age', fixture);
+    setInputFieldValue('City', 'city', fixture);
+
+    expect(component.formGroup.getRawValue())
+      .withContext('form group value')
+      .toEqual({
+        name: 'Name',
+        surname: 'Surname',
+        email: 'Email',
+        age: '12',
+        city: 'City',
+      });
   });
 });

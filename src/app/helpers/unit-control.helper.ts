@@ -24,3 +24,32 @@ export function checkControl(
     .withContext(`should render ${type} with formControlName=${controlName}`)
     .toBeTruthy();
 }
+
+export function findControlElement(
+  controlName: string,
+  type: string,
+  fixture: ComponentFixture<any>
+) {
+  return fixture.debugElement.query(
+    By.css(`${type}[formControlName=${controlName}]`)
+  );
+}
+
+
+export function setInputFieldValue(
+  value: string,
+  controlName: string,
+  fixture: ComponentFixture<any>
+) {
+  const controlEl = findControlElement(
+    controlName,
+    ControlType.TEXT_INPUT,
+    fixture
+  )?.nativeElement;
+
+  if (!controlEl) {
+    return;
+  }
+  controlEl.value = value;
+  controlEl.dispatchEvent(new Event('input'));
+}
