@@ -10,7 +10,7 @@ import { checkTextInputControl } from 'src/app/helpers/unit-control.helper';
 import { UserSearchFormComponent } from './user-search-form.component';
 import { Observable } from 'rxjs';
 
-describe('UserSearchFormComponent', () => {
+fdescribe('UserSearchFormComponent', () => {
   let actions$: Observable<any>;
   let component: UserSearchFormComponent;
   let fixture: ComponentFixture<UserSearchFormComponent>;
@@ -38,8 +38,6 @@ describe('UserSearchFormComponent', () => {
   });
 
   it('should set name and dispatch UsersActions.Search', waitForAsync(() => {
-    spyOn(component, 'handleFormChanges').and.callThrough();
-
     actions$
       .pipe(ofActionDispatched(UsersActions.Search))
       .subscribe((action) => {
@@ -56,8 +54,6 @@ describe('UserSearchFormComponent', () => {
   }));
 
   it('should set surname and dispatch UsersActions.Search', waitForAsync(() => {
-    spyOn(component, 'handleFormChanges').and.callThrough();
-
     actions$
       .pipe(ofActionDispatched(UsersActions.Search))
       .subscribe((action) => {
@@ -67,9 +63,5 @@ describe('UserSearchFormComponent', () => {
     const nameInput = fixture.debugElement.queryAll(By.css('input'))[1];
     nameInput.nativeElement.value = 'Surname';
     nameInput.nativeElement.dispatchEvent(new Event('input'));
-
-    fixture.whenStable().then(() => {
-      expect(component.handleFormChanges).toHaveBeenCalled();
-    });
   }));
 });

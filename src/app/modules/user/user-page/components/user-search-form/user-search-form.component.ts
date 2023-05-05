@@ -6,6 +6,7 @@ import {
   takeUntil,
   Observable,
   startWith,
+  skip,
 } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -28,11 +29,12 @@ export class UserSearchFormComponent implements OnInit {
       this.getValueChanges('name'),
       this.getValueChanges('surname'),
     ])
-      .pipe(takeUntil(this.destroy$))
+      .pipe(skip(1), takeUntil(this.destroy$))
       .subscribe((data) => this.handleFormChanges(...data));
   }
 
   handleFormChanges(name: string, surname: string) {
+    console.log('name: ', name, 'surname: ', surname);
     this.store.dispatch(new UsersActions.Search({ name, surname }));
   }
 
@@ -44,10 +46,8 @@ export class UserSearchFormComponent implements OnInit {
   }
 
   getValueChanges(controlName: string): Observable<any> {
-    return (
-      this.searchForm
-        ?.get(controlName)
-        ?.valueChanges.pipe(startWith(null), debounceTime(5_00))
-    );
+    return this.searchForm
+      ?.get(controlName)
+      ?.valueChanges.pipe(startWith(null), debounceTime(5_00));
   }
 }

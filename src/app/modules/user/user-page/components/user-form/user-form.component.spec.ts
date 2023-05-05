@@ -29,7 +29,7 @@ describe('UserFormComponent', () => {
   let actions$: Observable<any>;
   let component: UserFormComponent;
   let fixture: ComponentFixture<UserFormComponent>;
-  let modalService: any;
+  let modalService: NzModalService;
 
   beforeEach(async () => {
     modalService = jasmine.createSpyObj('NzModalService', {
