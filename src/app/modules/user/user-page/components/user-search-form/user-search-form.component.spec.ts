@@ -7,13 +7,48 @@ import { checkTextInputControl } from 'src/app/helpers/unit-control.helper';
 
 import { UserSearchFormComponent } from './user-search-form.component';
 import { Observable } from 'rxjs';
+import { DebugElement } from '@angular/core';
+
+/*
+  describe - is jasmine function which create suite spec tests for specific component, divide tests into multiple parts
+*/
 
 describe('UserSearchFormComponent', () => {
   let actions$: Observable<any>;
+  /* 
+    Component instance returned by ComponentFixture which is mainly used for:
+      - set inputs
+      - get referance to inner values, methods
+  */
   let component: UserSearchFormComponent;
+  /* 
+   ComponentFixture is a wrapper form component and template. It's provide referance to:
+    - component instance passed into TestBed.createComponent()
+    - debug element by which we have access to the rendered DOM
+  */
   let fixture: ComponentFixture<UserSearchFormComponent>;
 
+  /*
+    Provide access to elements in the DOM. 
+    - wraps the native DOM element and return components host element <app-...></app-...>
+    - offer properties like: properties, attributes, classes, classes to examine the DOM element
+    - provide nativeElement
+  */
+  let debugElement: DebugElement;
+
   beforeEach(async () => {
+    /*
+      TestBed:
+       - creates environment for testing component or service
+       - it's like one module per component
+       - configured like normal angular module with imports, declarations, providers
+
+       TestBed.configureTestingModule({
+            imports: [Modules],
+            declarations: [Components, Directives, Pipes],
+            providers: [Injected dependencies like services], 
+        });
+    */
     await TestBed.configureTestingModule({
       declarations: [UserSearchFormComponent, InputTextComponent],
       imports: [NgxsModule.forRoot([UserStateMock]), ReactiveFormsModule],
@@ -45,7 +80,7 @@ describe('UserSearchFormComponent', () => {
   //       done();
   //     });
 
-  //   const [nameInput, surnameInput] = fixture.debugElement.queryAll(
+  //   const [nameInput, surnameInput] = debugElement.queryAll(
   //     By.css('input')
   //   );
   //   nameInput.nativeElement.value = 'John';

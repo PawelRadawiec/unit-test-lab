@@ -15,6 +15,7 @@ import { UsersState } from 'src/app/state/user/users.state';
 import { environment } from 'src/environments/environment';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { ButtonComponent } from './components/button/button.component';
+import { UserFullNamePipe } from 'src/app/pipes/user-full-name.pipe';
 
 const ngZorroModules = [
   NzIconModule,
@@ -28,7 +29,7 @@ const ngZorroModules = [
 ];
 
 @NgModule({
-  declarations: [InputTextComponent, ButtonComponent],
+  declarations: [InputTextComponent, ButtonComponent, UserFullNamePipe],
   imports: [
     CommonModule,
     ReactiveFormsModule,

@@ -6,7 +6,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserListComponent } from './user-list.component';
 import { By } from '@angular/platform-browser';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, DebugElement, Input, OnInit } from '@angular/core';
 import { NzDividerComponent } from 'ng-zorro-antd/divider';
 import { UserFormComponent } from '../user-form/user-form.component';
 
@@ -23,16 +23,54 @@ class NzTableMock implements OnInit {
   }
 }
 
+/*
+  describe - is jasmine function which create suite spec tests for specific component, divide tests into multiple parts
+*/
+
 describe('UserListComponent', () => {
+  /* 
+    Component instance returned by ComponentFixture which is mainly used for:
+      - set inputs
+      - get referance to inner values, methods
+  */
   let component: UserListComponent;
+  /* 
+   ComponentFixture is a wrapper form component and template. It's provide referance to:
+    - component instance passed into TestBed.createComponent()
+    - debug element by which we have access to the rendered DOM
+  */
   let fixture: ComponentFixture<UserListComponent>;
-  let modalService: any;
+
+  /*
+    Instance of NzModalService which is injected into UserFormComponent
+  */
+  let modalService: NzModalService;
+
+   /*
+    Provide access to elements in the DOM. 
+    - wraps the native DOM element and return components host element <app-...></app-...>
+    - offer properties like: properties, attributes, classes, classes to examine the DOM element
+    - provide nativeElement
+  */
+    let debugElement: DebugElement;
 
   beforeEach(async () => {
     modalService = jasmine.createSpyObj('NzModalService', {
       create: undefined,
     });
 
+     /*
+      TestBed:
+       - creates environment for testing component or service
+       - it's like one module per component
+       - configured like normal angular module with imports, declarations, providers
+
+       TestBed.configureTestingModule({
+            imports: [Modules],
+            declarations: [Components, Directives, Pipes],
+            providers: [Injected dependencies like services], 
+        });
+    */
     await TestBed.configureTestingModule({
       declarations: [
         UserListComponent,
@@ -48,7 +86,9 @@ describe('UserListComponent', () => {
       imports: [NgxsModule.forRoot([UserStateMock])],
     }).compileComponents();
 
+     // return fixture wrapper
     fixture = TestBed.createComponent(UserListComponent);
+    debugElement = fixture.debugElement;
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -95,8 +135,8 @@ describe('UserListComponent', () => {
   });
 
   it('should render table', () => {
-    const table = fixture.debugElement.query(By.css('table'));
-    const rows = fixture.debugElement.queryAll(By.css('tbody tr'));
+    const table = debugElement.query(By.css('table'));
+    const rows = debugElement.queryAll(By.css('tbody tr'));
     const rowsData = rows[0].queryAll(By.css('td'));
 
     expect(table).withContext('table').toBeTruthy();
@@ -117,6 +157,6 @@ describe('UserListComponent', () => {
   });
 
   function getFirstRow() {
-    return fixture.debugElement.query(By.css('tbody tr'));
+    return debugElement.query(By.css('tbody tr'));
   }
 });
