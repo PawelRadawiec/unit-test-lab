@@ -30,19 +30,19 @@ export class UserSearchFormComponent implements OnInit, OnDestroy {
       this.getValueChanges('name'),
       this.getValueChanges('surname'),
     ])
-      .pipe(tap((data) => {
-        console.log('data:', data);
-      }),skip(1), takeUntil(this.destroy$))
+      .pipe(
+        skip(1),
+        takeUntil(this.destroy$)
+      )
       .subscribe((data) => this.handleFormChanges(...data));
   }
 
   ngOnDestroy() {
-      this.destroy$.next();
-      this.destroy$.complete();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   handleFormChanges(name: string, surname: string) {
-    console.log('name: ', name, 'surname: ', surname);
     this.store.dispatch(new UsersActions.Search({ name, surname }));
   }
 
