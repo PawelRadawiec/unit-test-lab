@@ -10,6 +10,7 @@ import { UserDetailsPageComponent } from './user-details-page/user-details-page.
 import { RouterTestingModule } from '@angular/router/testing';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { UserListResolver } from 'src/app/resolvers/user-list.resolver';
 
 describe('UserRoutingModule', () => {
   let location: Location;
@@ -28,6 +29,12 @@ describe('UserRoutingModule', () => {
         ),
       ],
       imports: [RouterTestingModule.withRoutes(USER_ROUTES)],
+      providers: [
+        {
+          provide: UserListResolver,
+          useValue: jasmine.createSpyObj('UserListResolver', ['resolve']),
+        },
+      ],
     });
 
     router = TestBed.inject(Router);
@@ -36,6 +43,12 @@ describe('UserRoutingModule', () => {
     fixture = TestBed.createComponent(AppComponent);
     router.initialNavigation();
   });
+
+  it('should navigate to user list', fakeAsync(() => {
+    router.navigate(['']);
+    tick();
+    expect(location.path()).toEqual('/');
+  }));
 
   it('should navigate to user details', fakeAsync(() => {
     router.navigate(['details']);

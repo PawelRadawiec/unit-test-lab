@@ -1,9 +1,9 @@
 import { ButtonComponent } from './../../../../shared/components/button/button.component';
 import { UsersActions } from 'src/app/state/user/users.actions';
 import { InputTextComponent } from './../../../../shared/components/input-text/input-text.component';
-import { Actions, NgxsModule, ofActionDispatched } from '@ngxs/store';
+import { Actions, NgxsModule, ofActionDispatched, Store } from '@ngxs/store';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { UserFormComponent } from './user-form.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -58,6 +58,8 @@ describe('UserFormComponent', () => {
   */
   let debugElement: DebugElement;
 
+  let store: Store;
+
   beforeEach(async () => {
     modalService = jasmine.createSpyObj('NzModalService', {
       closeAll: undefined,
@@ -94,6 +96,7 @@ describe('UserFormComponent', () => {
     fixture = TestBed.createComponent(UserFormComponent);
 
     actions$ = TestBed.inject(Actions);
+    store = TestBed.inject(Store);
     component = fixture.componentInstance;
     component.user = { ...USER_MOCK };
     debugElement = fixture.debugElement;
@@ -143,6 +146,26 @@ describe('UserFormComponent', () => {
     expect(component.save).toHaveBeenCalled();
   });
 
+  it('[mock dispatch] should click save and dispatch UsersActions.Edit', () => {
+    spyOn(component, 'save').and.callThrough();
+    spyOn(store, 'dispatch');
+
+    const saveBtn = debugElement.queryAll(By.css('app-button'))[1];
+    saveBtn.triggerEventHandler('onClick');
+
+    expect(component.save).toHaveBeenCalled();
+    expect(store.dispatch).toHaveBeenCalledWith(
+      new UsersActions.Edit({
+        name: 'Name',
+        surname: 'Surname',
+        age: '12',
+        city: 'City',
+        email: 'Email',
+        id: 1,
+      })
+    );
+  });
+
   it('should click save and dispatch UsersActions.Create', (done) => {
     const newUser = { ...USER_MOCK, id: null };
     component.user = newUser;
@@ -158,6 +181,28 @@ describe('UserFormComponent', () => {
     saveBtn.triggerEventHandler('onClick');
 
     expect(component.save).toHaveBeenCalled();
+  });
+
+  it('[mock dispatch] click save and dispatch UsersActions.Create', () => {
+    const newUser = { ...USER_MOCK, id: null };
+    component.user = newUser;
+    spyOn(component, 'save').and.callThrough();
+    spyOn(store, 'dispatch');
+
+    const saveBtn = debugElement.queryAll(By.css('app-button'))[1];
+    saveBtn.triggerEventHandler('onClick');
+
+    expect(component.save).toHaveBeenCalled();
+    expect(store.dispatch).toHaveBeenCalledWith(
+      new UsersActions.Create({
+        name: 'Name',
+        surname: 'Surname',
+        age: '12',
+        city: 'City',
+        email: 'Email',
+        id: null,
+      })
+    );
   });
 
   it('should append form group', () => {

@@ -11,6 +11,7 @@ import { UserSearchFormComponent } from './user-page/components/user-search-form
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserDetailsPageComponent } from './user-details-page/user-details-page.component';
 import { UserInfoComponent } from './user-page/user-info/user-info.component';
+import { UserListResolver } from 'src/app/resolvers/user-list.resolver';
 
 @NgModule({
   declarations: [
@@ -27,5 +28,6 @@ import { UserInfoComponent } from './user-page/user-info/user-info.component';
     SharedModule,
     ReactiveFormsModule,
   ],
+  providers: [UserListResolver]
 })
 export class UserModule {}

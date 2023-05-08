@@ -12,20 +12,16 @@ import { Observable } from 'rxjs';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss'],
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent {
   @Select(UsersState.users) users$!: Observable<any>;
 
   constructor(private modalService: NzModalService, private store: Store) {}
-
-  ngOnInit() {
-    this.store.dispatch(new UsersActions.List());
-  }
 
   edit(user: User) {
     this.modalService.create({
       nzTitle: 'Edit',
       nzContent: UserFormComponent,
-      nzComponentParams: {user},
+      nzComponentParams: { user },
       nzFooter: null,
     });
   }
