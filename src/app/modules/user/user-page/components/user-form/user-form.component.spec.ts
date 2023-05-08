@@ -13,6 +13,7 @@ import { By } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import {
   checkTextInputControl,
+  checkTextInputControlFalsy,
   ControlType,
   setInputFieldValue,
 } from 'src/app/helpers/unit-control.helper';
@@ -25,6 +26,7 @@ const USER_MOCK = {
   city: 'City',
   email: 'Email',
   id: 1,
+  country: 'Country',
 };
 
 /*
@@ -48,7 +50,7 @@ describe('UserFormComponent', () => {
   /*
     Instance of NzModalService which is injected into UserFormComponent
   */
-  let modalService: NzModalService;
+  let nzModalService: NzModalService;
 
   /*
     Provide access to elements in the DOM. 
@@ -61,10 +63,6 @@ describe('UserFormComponent', () => {
   let store: Store;
 
   beforeEach(async () => {
-    modalService = jasmine.createSpyObj('NzModalService', {
-      closeAll: undefined,
-    });
-
     /*
       TestBed:
        - creates environment for testing component or service
@@ -87,7 +85,10 @@ describe('UserFormComponent', () => {
       providers: [
         {
           provide: NzModalService,
-          useValue: modalService,
+          useValue: jasmine.createSpyObj('NzModalService', [
+            'create',
+            'closeAll',
+          ]),
         },
       ],
     }).compileComponents();
@@ -97,6 +98,7 @@ describe('UserFormComponent', () => {
 
     actions$ = TestBed.inject(Actions);
     store = TestBed.inject(Store);
+    nzModalService = TestBed.inject(NzModalService);
     component = fixture.componentInstance;
     component.user = { ...USER_MOCK };
     debugElement = fixture.debugElement;
@@ -109,15 +111,16 @@ describe('UserFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render five controls', () => {
+  it('should render controls', () => {
     checkTextInputControl('name', fixture);
     checkTextInputControl('surname', fixture);
     checkTextInputControl('email', fixture);
     checkTextInputControl('age', fixture);
     checkTextInputControl('city', fixture);
+    checkTextInputControl('country', fixture);
 
     const controls = debugElement.queryAll(By.css(ControlType.TEXT_INPUT));
-    expect(controls.length).toEqual(5);
+    expect(controls.length).toEqual(6);
   });
 
   it('should click close', () => {
@@ -127,12 +130,13 @@ describe('UserFormComponent', () => {
     closeBtn.triggerEventHandler('onClick');
     fixture.detectChanges();
 
-    expect(component['modalService'].closeAll)
+    expect(nzModalService.closeAll)
       .withContext('should call modal service closeAll')
       .toHaveBeenCalled();
     expect(component.close).withContext('should call close').toHaveBeenCalled();
   });
 
+  // check dispatch with jasmine done function
   it('should click save and dispatch UsersActions.Edit', (done) => {
     spyOn(component, 'save').and.callThrough();
     actions$.pipe(ofActionDispatched(UsersActions.Edit)).subscribe((action) => {
@@ -146,6 +150,7 @@ describe('UserFormComponent', () => {
     expect(component.save).toHaveBeenCalled();
   });
 
+  // check dispatch with mocking Store dispatch function
   it('[mock dispatch] should click save and dispatch UsersActions.Edit', () => {
     spyOn(component, 'save').and.callThrough();
     spyOn(store, 'dispatch');
@@ -162,10 +167,12 @@ describe('UserFormComponent', () => {
         city: 'City',
         email: 'Email',
         id: 1,
+        country: 'Country',
       })
     );
   });
 
+  // check dispatch with jasmine done function
   it('should click save and dispatch UsersActions.Create', (done) => {
     const newUser = { ...USER_MOCK, id: null };
     component.user = newUser;
@@ -183,6 +190,7 @@ describe('UserFormComponent', () => {
     expect(component.save).toHaveBeenCalled();
   });
 
+  // check dispatch with mocking Store dispatch function
   it('[mock dispatch] click save and dispatch UsersActions.Create', () => {
     const newUser = { ...USER_MOCK, id: null };
     component.user = newUser;
@@ -201,6 +209,7 @@ describe('UserFormComponent', () => {
         city: 'City',
         email: 'Email',
         id: null,
+        country: 'Country',
       })
     );
   });
@@ -220,6 +229,22 @@ describe('UserFormComponent', () => {
         email: 'Email',
         age: '12',
         city: 'City',
+        country: 'Country',
       });
   });
+
+  it('should hide city form control', waitForAsync(() => {
+    let controls = debugElement.queryAll(By.css(ControlType.TEXT_INPUT));
+    checkTextInputControl('city', fixture);
+    expect(controls.length).toEqual(6);
+
+    component.formGroup.get('country').patchValue(null);
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      checkTextInputControlFalsy('city', fixture);
+      controls = debugElement.queryAll(By.css(ControlType.TEXT_INPUT));
+      expect(controls.length).toEqual(5);
+    });
+  }));
 });

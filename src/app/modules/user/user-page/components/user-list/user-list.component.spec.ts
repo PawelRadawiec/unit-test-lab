@@ -44,7 +44,7 @@ describe('UserListComponent', () => {
   /*
     Instance of NzModalService which is injected into UserFormComponent
   */
-  let modalService: NzModalService;
+  let nzModalService: NzModalService;
 
    /*
     Provide access to elements in the DOM. 
@@ -55,10 +55,6 @@ describe('UserListComponent', () => {
     let debugElement: DebugElement;
 
   beforeEach(async () => {
-    modalService = jasmine.createSpyObj('NzModalService', {
-      create: undefined,
-    });
-
      /*
       TestBed:
        - creates environment for testing component or service
@@ -80,7 +76,7 @@ describe('UserListComponent', () => {
       providers: [
         {
           provide: NzModalService,
-          useValue: modalService,
+          useValue: jasmine.createSpyObj('NzModalService', ['create']),
         },
       ],
       imports: [NgxsModule.forRoot([UserStateMock])],
@@ -88,6 +84,7 @@ describe('UserListComponent', () => {
 
      // return fixture wrapper
     fixture = TestBed.createComponent(UserListComponent);
+    nzModalService = TestBed.inject(NzModalService);
     debugElement = fixture.debugElement;
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -112,7 +109,7 @@ describe('UserListComponent', () => {
     editIcon.triggerEventHandler('click');
 
     expect(component.edit).toHaveBeenCalled();
-    expect(component['modalService'].create).toHaveBeenCalledOnceWith({
+    expect(nzModalService.create).toHaveBeenCalledOnceWith({
       nzTitle: 'Edit',
       nzContent: UserFormComponent,
       nzComponentParams: { user },
@@ -127,7 +124,7 @@ describe('UserListComponent', () => {
     editIcon.triggerEventHandler('click');
 
     expect(component.delete).toHaveBeenCalled();
-    expect(component['modalService'].create).toHaveBeenCalledWith({
+    expect(nzModalService.create).toHaveBeenCalledWith({
       nzTitle: 'Delete',
       nzContent: `Delete Jan Nowak`,
       nzOnOk: jasmine.any(Function),

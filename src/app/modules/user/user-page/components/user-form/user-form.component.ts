@@ -2,17 +2,25 @@ import { User } from './../../../../../models/user.model';
 import { UsersActions } from 'src/app/state/user/users.actions';
 import { Store } from '@ngxs/store';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { Subject, startWith, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss'],
 })
-export class UserFormComponent implements OnInit {
+export class UserFormComponent implements OnInit, OnDestroy {
   @Input() user!: User;
   formGroup!: FormGroup;
+  destroy$ = new Subject<void>();
+  showCity: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -22,6 +30,16 @@ export class UserFormComponent implements OnInit {
 
   ngOnInit() {
     this.setFromGroup();
+    this.countryControl?.valueChanges
+      .pipe(startWith(this.countryControl.value), takeUntil(this.destroy$))
+      .subscribe((country) => {
+        this.showCity = !!country;
+      });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   close() {
@@ -43,7 +61,12 @@ export class UserFormComponent implements OnInit {
       surname: [this.user?.surname, Validators.required],
       email: [this.user?.email, Validators.required],
       age: [this.user?.age, Validators.required],
+      country: [this.user?.country, Validators.required],
       city: [this.user?.city, Validators.required],
     });
+  }
+
+  get countryControl() {
+    return this.formGroup?.get('country') as FormControl;
   }
 }

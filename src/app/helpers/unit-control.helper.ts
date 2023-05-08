@@ -12,6 +12,13 @@ export function checkTextInputControl(
   return checkControl(controlName, ControlType.TEXT_INPUT, fixture);
 }
 
+export function checkTextInputControlFalsy(
+  controlName: string,
+  fixture: ComponentFixture<any>
+) {
+  return checkControlFalsy(controlName, ControlType.TEXT_INPUT, fixture);
+}
+
 export function checkControl(
   controlName: string,
   type: ControlType,
@@ -23,6 +30,19 @@ export function checkControl(
   expect(control)
     .withContext(`should render ${type} with formControlName=${controlName}`)
     .toBeTruthy();
+}
+
+export function checkControlFalsy(
+  controlName: string,
+  type: ControlType,
+  fixture: ComponentFixture<any>
+) {
+  const control = fixture.debugElement.query(
+    By.css(`${type}[formControlName=${controlName}]`)
+  );
+  expect(control)
+    .withContext(`should not render ${type} with formControlName=${controlName}`)
+    .toBeFalsy();
 }
 
 export function findControlElement(

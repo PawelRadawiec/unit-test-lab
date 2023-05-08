@@ -27,7 +27,7 @@ export class UserPageComponent implements OnInit {
 
   deleteAll() {
     this.modalService.create({
-      nzTitle: 'Create',
+      nzTitle: 'Delete all',
       nzContent: 'Are you sure you want to delete all users?',
       nzOnOk: () => {
         this.store.dispatch(new UsersActions.DeleteAll());

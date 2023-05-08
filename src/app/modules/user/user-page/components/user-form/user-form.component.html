@@ -10,7 +10,16 @@
 
   <app-input-text formControlName="age" placeholder="Age"></app-input-text>
 
-  <app-input-text formControlName="city" placeholder="City"></app-input-text>
+  <app-input-text
+    formControlName="country"
+    placeholder="Country"
+  ></app-input-text>
+
+  <app-input-text
+    *ngIf="showCity"
+    formControlName="city"
+    placeholder="City"
+  ></app-input-text>
 
   <div class="user-form__buttons">
     <app-button [outline]="true" (onClick)="close()" text="Close"></app-button>
